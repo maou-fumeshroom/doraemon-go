@@ -1,7 +1,8 @@
-package doraemon
+package container
 
 import (
-	"encoding/json"
+	"fmt"
+	"strings"
 )
 
 type Stack[T any] struct {
@@ -44,6 +45,9 @@ func (s *Stack[T]) Len() int {
 }
 
 func (s *Stack[T]) String() string {
-	bs, _ := json.Marshal(s.sl)
-	return string(bs)
+	strs := make([]string, 0, s.Len())
+	for _, el := range s.sl {
+		strs = append(strs, fmt.Sprintf("%+v", el))
+	}
+	return fmt.Sprintf("[%s]", strings.Join(strs, ", "))
 }
